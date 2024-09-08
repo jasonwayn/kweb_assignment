@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Quiz Page</title>
+    <style>
+        button {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            background-color: white;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .selected {
+            background-color: black;
+        }
+
+        .correct {
+            background-color: blue;
+        }
+
+        .incorrect {
+            background-color: red;
+        }
+
+        .default-button {
+            all: unset;
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: lightgray;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .default-button:hover {
+            background-color: gray;
+        }
+    </style>
+    <script>
+        function selectButton(buttonId, group) {
+            const buttons = document.querySelectorAll('.' + group + ' button');
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+            });
+            const selectedButton = document.getElementById(buttonId);
+            selectedButton.classList.add('selected');
+        }
+
+        function submitfunc() {
+            let grade=0;
+            const q1Selected = document.querySelector('.group1 .selected');
+            const q1Question = document.getElementById('q1-text');
+            if (q1Selected) {
+                if (q1Selected.id === 'button1') {
+                    q1Question.classList.add('correct');
+                        
+                } else {
+                    q1Question.classList.add('incorrect');
+                }
+            }
+            
+            const q2Selected = document.querySelector('.group2 .selected');
+            const q2Question = document.getElementById('q2-text');
+            if (q2Selected) {
+                if (q2Selected.id === 'button8') {
+                    q2Question.classList.add('correct');
+                    grade+=1;
+                } else {
+                    q2Question.classList.add('incorrect');
+                }
+            }
+
+            const q3Answer = document.getElementById('answer').value.trim().toLowerCase();
+            const q3CorrectAnswer = "워싱턴";
+            const q3Question = document.getElementById('q3-text');
+            if (q3Answer === q3CorrectAnswer.toLowerCase()) {
+                q3Question.classList.add('correct');
+                grade+=1;
+            } else {
+                q3Question.classList.add('incorrect');
+            }
+            
+            alert(grade);
+        }
+    </script>
+</head>
+<body>
+    <div id="q1" class="group1">
+        <h1 id="q1-text">Q1 : 일본의 수도는?</h1>
+        <button id="button1" onclick="selectButton('button1','group1')"></button> 도쿄
+        <br>
+        <button id="button2" onclick="selectButton('button2','group1')"></button> 오사카
+        <br>
+        <button id="button3" onclick="selectButton('button3','group1')"></button> 교토
+        <br>
+        <button id="button4" onclick="selectButton('button4','group1')"></button> 후쿠오카
+    </div>
+    <div id="q2" class="group2">
+        <h1 id="q2-text">Q2 : 한국의 수도는?</h1>
+        <button id="button5" onclick="selectButton('button5','group2')"></button> 부산
+        <br>
+        <button id="button6" onclick="selectButton('button6','group2')"></button> 대구
+        <br>
+        <button id="button7" onclick="selectButton('button7','group2')"></button> 광주
+        <br>
+        <button id="button8" onclick="selectButton('button8','group2')"></button> 서울
+    </div>
+    <div id="q3">
+        <h1 id="q3-text">Q3 : 미국의 수도는?</h1>
+        <form>
+            정답을 입력하세요:
+            <input type="text" id="answer" name="answer">
+        </form>
+    </div>
+    <br>
+    <br>
+    <div>
+        <button type="button" class="default-button" onclick="submitfunc()">submit</button>
+    </div>
+</body>
+</html>
